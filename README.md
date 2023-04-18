@@ -24,19 +24,19 @@ This dataset is a subset of the extensive collection of data maintained by the N
 
 -Data cleaning: Clean and preprocess the data to handle missing values, outliers, duplicates, and other data quality issues.
 
-Exploratory data analysis (EDA): Analyze and visualize the data to gain insights and understand the relationships between features.
+-Exploratory data analysis (EDA): Analyze and visualize the data to gain insights and understand the relationships between features.
 
-Feature selection: Choose the most relevant features based on EDA, domain knowledge, or statistical tests.
+-Feature selection: Choose the most relevant features based on EDA, domain knowledge, or statistical tests.
 
-Feature scaling: Scale the features to a common range to avoid bias towards features with larger values.
+-Feature scaling: Scale the features to a common range to avoid bias towards features with larger values.
 
-Feature transformation: Transform the features using mathematical operations like logarithmic, exponential, or power functions to create new features or improve  their distribution.
+-Feature transformation: Transform the features using mathematical operations like logarithmic, exponential, or power functions to create new features or improve  their distribution.
 
-Feature encoding: Encode categorical features using techniques like one-hot encoding, ordinal encoding, or target encoding to convert them into numerical values.
+-Feature encoding: Encode categorical features using techniques like one-hot encoding, ordinal encoding, or target encoding to convert them into numerical values.
 
-Feature extraction: Extract features from unstructured data like text or images using techniques like bag-of-words, TF-IDF, or CNNs.
+-Feature extraction: Extract features from unstructured data like text or images using techniques like bag-of-words, TF-IDF, or CNNs.
 
-Feature generation: Create new features using combinations of existing features or external data sources to capture higher-level relationships.
+-Feature generation: Create new features using combinations of existing features or external data sources to capture higher-level relationships.
 
-Feature validation: Validate the selected features by testing the model's performance on a validation set or using cross-validation techniques.
+-Feature validation: Validate the selected features by testing the model's performance on a validation set or using cross-validation techniques.
 

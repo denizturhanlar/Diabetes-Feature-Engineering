@@ -1,5 +1,6 @@
 # Diabetes-Feature-Engineering
 
+![diyabet](https://user-images.githubusercontent.com/126112467/232756617-cbc1b25e-faae-49a6-aeea-4da874a8338b.jpg)
 
 # Business Problem
 It is desired to develop a machine learning model that can predict whether people have diabetes when their characteristics are specified. You are expected to perform the necessary data analysis and feature engineering steps before developing the model.
@@ -19,9 +20,9 @@ This dataset is a subset of the extensive collection of data maintained by the N
 - Outcome:	Information whether the person has diabetes or not. Have the disease (1) or not (0)
 
 # Reminder
-Data collection: Collect data from various sources, which could include web scraping, APIs, databases, and flat files.
+-Data collection: Collect data from various sources, which could include web scraping, APIs, databases, and flat files.
 
-Data cleaning: Clean and preprocess the data to handle missing values, outliers, duplicates, and other data quality issues.
+-Data cleaning: Clean and preprocess the data to handle missing values, outliers, duplicates, and other data quality issues.
 
 Exploratory data analysis (EDA): Analyze and visualize the data to gain insights and understand the relationships between features.
 

@@ -11,38 +11,38 @@
 # üzerinde yapılan diyabet araştırması için kullanılan verilerdir. 768 gözlem ve 8 sayısal bağımsız değişkenden oluşmaktadır.
 # Hedef değişken "outcome" olarak belirtilmiş olup; 1 diyabet test sonucunun pozitif oluşunu, 0 ise negatif oluşunu belirtmektedir.
 
-# Pregnancies: Hamilelik sayısı
-# Glucose: Glikoz
-# BloodPressure: Kan basıncı (Diastolic(Küçük Tansiyon))
-# SkinThickness: Cilt Kalınlığı
-# Insulin: İnsülin.
-# BMI: Beden kitle indeksi.
-# DiabetesPedigreeFunction: Soyumuzdaki kişilere göre diyabet olma ihtimalimizi hesaplayan bir fonksiyon.
-# Age: Yaş (yıl)
-# Outcome: Kişinin diyabet olup olmadığı bilgisi. Hastalığa sahip (1) ya da değil (0)
+# Pregnancies: Number of pregnancies
+# Glucose: Glucose
+# BloodPressure: Blood pressure (Diastolic)
+# SkinThickness: Skin Thickness
+# Insulin: Insulin
+# BMI: Body mass index
+# DiabetesPedigreeFunction: A function that calculates our probability of having diabetes based on our descendants.
+# Age: Age (year)
+# Outcome: Information whether the person has diabetes or not. Have the disease (1) or not (0)
+
+# TASK  1: Exploratory Data Analysis
+           # Step 1: Examine the overall picture.
+           # Step 2: Capture the numerical and categorical variables.
+           # Step 3: Perform the analysis of numerical and categorical variables.
+           # Step 4: Do the target variable analysis. (The average of the target variables according to the categorical variables, 
+           # the average of the numerical variables according to the target variable)
+           # Step 5: Make an outlier observation analysis.
+           # Step 6: Make an incomplete observation analysis.
+           # Step 7: Do a correlation analysis.
+           
+# TASK 2: FEATURE ENGINEERING
+           # Step 1: Take the necessary actions for missing and outliers.
+           # There are no missing observations in the data set, but Glucose, Insulin, etc. observation units containing a value of 0 in variables may express the missing value
+           # For example, a person's glucose or insulin value will not be 0
+           #Taking this into account, you can assign zero values as NaN in the corresponding values and then apply operations to the missing values.
+           # Step 2: Create new variables.
+           # Step 3: Perform the encoding operations.
+           # Step 4: Standardize for numerical variables.
+           # Step 5: Create a model.
 
 
-# GÖREV 1: KEŞİFCİ VERİ ANALİZİ
-           # Adım 1: Genel resmi inceleyiniz.
-           # Adım 2: Numerik ve kategorik değişkenleri yakalayınız.
-           # Adım 3:  Numerik ve kategorik değişkenlerin analizini yapınız.
-           # Adım 4: Hedef değişken analizi yapınız. (Kategorik değişkenlere göre hedef değişkenin ortalaması, hedef değişkene göre numerik değişkenlerin ortalaması)
-           # Adım 5: Aykırı gözlem analizi yapınız.
-           # Adım 6: Eksik gözlem analizi yapınız.
-           # Adım 7: Korelasyon analizi yapınız.
-
-# GÖREV 2: FEATURE ENGINEERING
-           # Adım 1:  Eksik ve aykırı değerler için gerekli işlemleri yapınız. Veri setinde eksik gözlem bulunmamakta ama Glikoz, Insulin vb.
-           # değişkenlerde 0 değeri içeren gözlem birimleri eksik değeri ifade ediyor olabilir. Örneğin; bir kişinin glikoz veya insulin değeri
-           # 0 olamayacaktır. Bu durumu dikkate alarak sıfır değerlerini ilgili değerlerde NaN olarak atama yapıp sonrasında eksik değerlere
-           # işlemleri uygulayabilirsiniz.
-           # Adım 2: Yeni değişkenler oluşturunuz.
-           # Adım 3:  Encoding işlemlerini gerçekleştiriniz.
-           # Adım 4: Numerik değişkenler için standartlaştırma yapınız.
-           # Adım 5: Model oluşturunuz.
-
-
-# Gerekli Kütüphane ve Fonksiyonlar
+# imort the libraries
 import numpy as np
 import pandas as pd
 import matplotlib.pyplot as plt
@@ -66,11 +66,11 @@ df = pd.read_csv("WEEK 7 FEATURE ENGINERRING/diabetes.csv")
 df.head()
 
 ##################################
-# GÖREV 1: KEŞİFCİ VERİ ANALİZİ
+# TASK 1: Exploratory Data Analysis
 ##################################
 
 ##################################
-# GENEL RESİM
+# Examine the overall picture.
 ##################################
 
 def check_df(dataframe, head=5):
@@ -88,41 +88,41 @@ def check_df(dataframe, head=5):
     print(dataframe.quantile([0, 0.05, 0.50, 0.95, 0.99, 1]).T) # sayısal değişkenlerin ceyrekliklerinin incelenmesi
 
 check_df(df)
-# Glucose degeri sıfır olabilir mi?
-# Insulin degeri sıfır olabilir mi ?
-# Kan basıncı sıfır olabilir mi?
-# Veri setinde eksik degereler vardı da sıfır basıldı?
-# Insulin degerinde 95 ceyreklikten max degere buyuk bir sıcrayıs var bu da aykırı deger olabileceginin bir sinyali.
+# Can the glucose value be zero?
+# Can the insulin value be zero ?
+# Can blood pressure be zero?
+# There were missing values in the data set, but zero was printed?
+# There is a large temperature in the insulin value from 95 quarters to the max value, which is a signal that there may be outliers.
 
 df.head()
 
 ##################################
-# NUMERİK VE KATEGORİK DEĞİŞKENLERİN YAKALANMASI
+# Capture the numerical and categorical variables.
 ##################################
 
 def grab_col_names(dataframe, cat_th=10, car_th=20):
     """
 
-    Veri setindeki kategorik, numerik ve kategorik fakat kardinal değişkenlerin isimlerini verir.
-    Not: Kategorik değişkenlerin içerisine numerik görünümlü kategorik değişkenler de dahildir.
+    It gives the names of categorical, numerical and categorical but cardinal variables in the data set.
+    Note: Categorical variables also include numerical-looking categorical variables.
 
     Parameters
     ------
         dataframe: dataframe
-                Değişken isimleri alınmak istenilen dataframe
+                The desired dataframe to retrieve variable names
         cat_th: int, optional
-                numerik fakat kategorik olan değişkenler için sınıf eşik değeri
+               the class threshold value for variables that are numerical but categorical is
         car_th: int, optional
                 kategorik fakat kardinal değişkenler için sınıf eşik değeri
 
     Returns
     ------
         cat_cols: list
-                Kategorik değişken listesi
+                List of categorical variables
         num_cols: list
-                Numerik değişken listesi
+               List of numerical variables
         cat_but_car: list
-                Kategorik görünümlü kardinal değişken listesi
+                A categorical-looking list of cardinal variables
 
     Examples
     ------
@@ -133,8 +133,8 @@ def grab_col_names(dataframe, cat_th=10, car_th=20):
 
     Notes
     ------
-        cat_cols + num_cols + cat_but_car = toplam değişken sayısı
-        num_but_cat cat_cols'un içerisinde.
+        cat_cols + num_cols + cat_but_car = total number of variables
+        num_but_cat is in cat_cols.
 
     """
     # cat_cols, cat_but_car
@@ -142,18 +142,18 @@ def grab_col_names(dataframe, cat_th=10, car_th=20):
     num_but_cat = [col for col in dataframe.columns if dataframe[col].nunique() < cat_th and dataframe[col].dtypes != "O"] # 0,1,2
     cat_but_car = [col for col in dataframe.columns if dataframe[col].nunique() > car_th and dataframe[col].dtypes == "O"] # name
     cat_cols = cat_cols + num_but_cat
-    cat_cols = [col for col in cat_cols if col not in cat_but_car] # cat_cols tüm object  veri tipini tuttugu için içerisinde cat_but_car bulunabilir.
+    cat_cols = [col for col in cat_cols if col not in cat_but_car]  #since cat_cols holds the entire object data type, it can contain cat_but_car.
 
     # num_cols
     num_cols = [col for col in dataframe.columns if dataframe[col].dtypes != "O"]
-    num_cols = [col for col in num_cols if col not in num_but_cat] #numerik_gorunumlu kategorikler hariç
+    num_cols = [col for col in num_cols if col not in num_but_cat] #numerik_except for categories with problems
 
-    print(f"Observations: {dataframe.shape[0]}") # satır
-    print(f"Variables: {dataframe.shape[1]}") # sutun
-    print(f'cat_cols: {len(cat_cols)}') # categorik degişken sayısı
-    print(f'num_cols: {len(num_cols)}') # numerik değişkenler
-    print(f'cat_but_car: {len(cat_but_car)}') # categorik fakat kardinal
-    print(f'num_but_cat: {len(num_but_cat)}') # numerik görünümlü kategorik
+    print(f"Observations: {dataframe.shape[0]}") # row
+    print(f"Variables: {dataframe.shape[1]}") # columns
+    print(f'cat_cols: {len(cat_cols)}') # the number of categorical variables
+    print(f'num_cols: {len(num_cols)}') # numerical variables
+    print(f'cat_but_car: {len(cat_but_car)}') # categorical, but cardinal
+    print(f'num_but_cat: {len(num_but_cat)}') # numerical-looking categorical
 
     return cat_cols, num_cols, cat_but_car
 
@@ -169,20 +169,20 @@ num_cols
 cat_but_car
 
 
-##################################
-# KATEGORİK DEĞİŞKENLERİN ANALİZİ
+#################################
+#ANALYSIS OF CATEGORICAL VARIABLES
 ##################################
 
 # amacım değişkene dair degerlerin oranına göz atmak.
-def cat_summary(dataframe, col_name, plot=False): # plot:true olursa if çalışır.
-    print(pd.DataFrame({col_name: dataframe[col_name].value_counts(),  #değişkende hangi degerden kacar adet var?
-                        "Ratio": 100 * dataframe[col_name].value_counts() / len(dataframe)})) # deger adetlerini toplam deger sayısına bölümü oran verir.
+def cat_summary(dataframe, col_name, plot=False): #plot:true olursa if çalışır.
+    print(pd.DataFrame({col_name: dataframe[col_name].value_counts(),  #what value is there missing in the variable?
+                        "Ratio": 100 * dataframe[col_name].value_counts() / len(dataframe)})) #gives the ratio of the number of values divided by the total number of values.
     print("##########################################")
     if plot:
         sns.countplot(x=dataframe[col_name], data=dataframe)
         plt.show()
 
-# kategorik değişkenimde deniyorum.
+#Trying in my categorical variable.
 cat_summary(df, "Outcome")
 
 
@@ -190,12 +190,12 @@ for col in cat_cols:
     cat_summary(df, col)
 
 ##################################
-# NUMERİK DEĞİŞKENLERİN ANALİZİ
+# ANALYSIS OF NUMERICAL VARIABLES
 ##################################
 
-def num_summary(dataframe, numerical_col, plot=False):  # plot:true olursa if çalışır.
-    quantiles = [0.05, 0.10, 0.20, 0.30, 0.40, 0.50, 0.60, 0.70, 0.80, 0.90, 0.95, 0.99] # hangi ceyreklikleri istiyorum?
-    print(dataframe[numerical_col].describe(quantiles).T) # istedigim ceyreklikler bazında describe göz atıyorum.
+def num_summary(dataframe, numerical_col, plot=False):  #plot: if true, it works.
+    quantiles = [0.05, 0.10, 0.20, 0.30, 0.40, 0.50, 0.60, 0.70, 0.80, 0.90, 0.95, 0.99] #what qualities do I want?
+    print(dataframe[numerical_col].describe(quantiles).T)  #I'm looking at the description based on the requirements I want.
 
     if plot:
         dataframe[numerical_col].hist(bins=20)
@@ -203,7 +203,7 @@ def num_summary(dataframe, numerical_col, plot=False):  # plot:true olursa if ç
         plt.title(numerical_col)
         plt.show()
 
-for col in num_cols: # num_cols: grab_col_names fonksiyonundan elde ettigim numerik değişkenlerim.
+for col in num_cols: #num_cols: my numerical variables obtained from the grab_col_names function.
     num_summary(df, col, plot=False)
 
 ##################################

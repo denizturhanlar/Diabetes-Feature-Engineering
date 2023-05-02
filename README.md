@@ -5,7 +5,7 @@
 # Business Problem
 It is desired to develop a machine learning model that can predict whether people have diabetes when their characteristics are specified. You are expected to perform the necessary data analysis and feature engineering steps before developing the model.
 
-# Data-Set
+# Story of Data Set
 This dataset is a subset of the extensive collection of data maintained by the National Institutes of Diabetes-Digestive-Kidney Diseases in the United States. The data was gathered for diabetes research and pertains to Pima Indian women aged 21 and above residing in Phoenix, Arizona, the fifth-largest city in the state. The dataset includes 768 entries and eight numerical independent variables. The target variable, labeled "outcome," has two possible values: 1 indicates a positive result for diabetes, while 0 indicates a negative result.
 
 # Columns Name  Description
